@@ -78,7 +78,7 @@ def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 
     '''CREATE DIR'''
-    timestr = datetime.utcnow().strftime('%F_%T.%f')[:-3] 
+    timestr = datetime.utcnow().strftime('%F_%H-%M-%S.%f')[:-3] 
     exp_dir = Path('./log/')
     exp_dir.mkdir(exist_ok=True)
     exp_dir = exp_dir.joinpath('part_seg')
