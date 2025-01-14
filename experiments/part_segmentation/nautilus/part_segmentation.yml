@@ -10,28 +10,28 @@ spec:
     matchLabels:
       k8s-app: veckm-part-seg
   template:
-    metadata: 
+    metadata:
       labels:
         k8s-app: veckm-part-seg
     spec:
       containers:
-      - name: veckm-part-seg-pod
-        image: ubuntu:latest
-        command: ["sleep", "infinity"]
-        resources:
-          limits:
-            nvidia.com/gpu: "1"
-            memory: "16G"
-            cpu: "1"
-          requests:
-             memory: "16G"
-             cpu: "16G"
+        - name: veckm-part-seg-pod
+          image: ubuntu:latest
+          command: ["sleep", "infinity"]
+          resources:
+            limits:
+              nvidia.com/gpu: "1"
+              memory: "16G"
+              cpu: "1"
+            requests:
+              memory: "16G"
+              cpu: "1"
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: nvidia.com/gpu.product
-                operator: In
-                values:
-                - NVIDIA-GeForce-GTX-1080-Ti
+              - matchExpressions:
+                  - key: nvidia.com/gpu.product
+                    operator: In
+                    values:
+                      - NVIDIA-GeForce-GTX-1080-Ti
