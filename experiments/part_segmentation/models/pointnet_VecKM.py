@@ -5,14 +5,14 @@ import torch.utils.data
 import torch.nn.functional as F
 import sys
 sys.path.append('..')
-from VecKM_small import VecKM
+from VecKM import VecKM
 from complexPyTorch.complexLayers import ComplexLinear, ComplexReLU
 
 class get_model(nn.Module):
     def __init__(self, part_num, args):
         super(get_model, self).__init__()
         self.vkm_feat = nn.Sequential(
-            VecKM(256, 30, 6),
+            VecKM(256, [30], [6]),
             ComplexLinear(256, 256),
             ComplexReLU(),
             ComplexLinear(256, 1024)
