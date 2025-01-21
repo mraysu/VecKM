@@ -7,19 +7,21 @@ RUN apt-get install -y wget
 RUN apt-get install -y git
 
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh && \
-    bash Anaconda3-2024.10-1-Linux-x86_64.sh
+    bash Anaconda3-2024.10-1-Linux-x86_64.sh -b
 
-ENV PATH=$PATH:/root/anaconda/bin
+ENV PATH="$PATH:/root/anaconda3/bin/"
 
 RUN git clone --depth=1 https://github.com/mraysu/VecKM /root/VecKM
 
-RUN conda create -n veckm python=3.10 -y
+RUN conda create -n veckm python=3.12 -y
 RUN conda init bash
 
 WORKDIR /root/VecKM
 
 # make RUN commands use the new environment
 SHELL ["conda", "run", "--no-capture-output", "-n", "veckm", "/bin/bash", "-c"]
+
+RUN yes | pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 RUN yes | pip install --default-timeout=100 -r requirements.txt && \
 yes | apt-get install p7zip-full && \ 
