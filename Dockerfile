@@ -2,6 +2,7 @@ FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
 
 ## apt installs
 RUN apt update && apt-get upgrade -y
+RUN apt-get update
 RUN apt-get install -y ffmpeg libsm6 libxext6
 RUN apt-get install -y wget
 RUN apt-get install -y git
