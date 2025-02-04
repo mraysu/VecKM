@@ -14,6 +14,10 @@ spec:
       labels:
         k8s-app: veckm-test
     spec:
+      volumes:
+        - name: shapenetcore-partanno
+          PersistentVolumeClaim:
+            claimName: shapenetcore-partanno
       containers:
         - name: veckm-test-pod
           image: ghcr.io/mraysu/veckm
@@ -26,6 +30,9 @@ spec:
             requests:
               memory: "16G"
               cpu: "1"
+          volumeMounts:
+            - mountPath: "/root/data"
+              name: shapenetcore-partanno
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
