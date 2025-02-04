@@ -16,7 +16,7 @@ spec:
     spec:
       volumes:
         - name: shapenetcore-partanno
-          PersistentVolumeClaim:
+          persistentVolumeClaim:
             claimName: shapenetcore-partanno
       containers:
         - name: veckm-test-pod

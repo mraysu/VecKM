@@ -6,6 +6,7 @@ RUN apt-get update
 RUN apt-get install -y ffmpeg libsm6 libxext6
 RUN apt-get install -y wget
 RUN apt-get install -y git
+RUN apt-get install -y apt-utils
 
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh && \
     bash Anaconda3-2024.10-1-Linux-x86_64.sh -b
@@ -20,15 +21,23 @@ RUN conda init bash
 WORKDIR /root/VecKM
 
 COPY requirements.txt .
+COPY .env /root/.gitconfig
+
+RUN yes | apt install p7zip-full
+RUN yes | apt install tmux
+#RUN yes | apt install vim --fix-missing
 
 # make RUN commands use the new environment
 SHELL ["conda", "run", "--no-capture-output", "-n", "veckm", "/bin/bash", "-c"]
 
+RUN yes | pip install --default-timeout=100 -r requirements.txt
+
 RUN yes | pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
-RUN yes | pip install --default-timeout=100 -r requirements.txt && \
-yes | apt-get install p7zip-full && \ 
-yes | apt-get install vim && \
-yes | apt-get install tmux
 
-RUN echo "conda activate veckm" >> /root/.bashrcpip
+RUN echo "conda activate veckm" >> /root/.bashrc
+RUN echo "cd VecKM && git pull && cd .." >> /root/.bashrc
+
+COPY temp.txt .
+RUN echo temp.txt >> /root/.bashrc
+RUN rm temp.txt
