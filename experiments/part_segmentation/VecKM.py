@@ -94,13 +94,19 @@ class VecKM(nn.Module):
         ) / eT                                                                  # (bs, n_scales, n_reso, n, d)
         G = G / torch.norm(G, dim=-1, keepdim=True) * self.sqrt_d               # (bs, n_scales, n_reso, n, d)
 
+        scale_reso = G.shape[-4]*G.shape[-3]
+
         G = G.reshape(
             *G.shape[:-4], 
-            G.shape[-4]*G.shape[-3], 
+            scale_reso,
             G.shape[-2], 
             G.shape[-1]
         )                                                                       # (bs, n_scales*n_reso, n, d)
 
+        #print(G.shape)
+        if scale_reso == 1:
+            G = np.squeeze(G)                                                   # (bs, n, d)
+        #print(G.shape)
         return G
 
     def __repr__(self):

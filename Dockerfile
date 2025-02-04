@@ -19,6 +19,8 @@ RUN conda init bash
 
 WORKDIR /root/VecKM
 
+COPY requirements.txt .
+
 # make RUN commands use the new environment
 SHELL ["conda", "run", "--no-capture-output", "-n", "veckm", "/bin/bash", "-c"]
 

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: veckm-part-seg
+  name: veckm-test
   labels:
-    k8s-app: veckm-part-seg
+    k8s-app: veckm-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: veckm-part-seg
+      k8s-app: veckm-test
   template:
     metadata:
       labels:
-        k8s-app: veckm-part-seg
+        k8s-app: veckm-test
     spec:
       containers:
-        - name: veckm-part-seg-pod
-          image: ubuntu:latest
+        - name: veckm-test-pod
+          image: ghcr.io/mraysu/veckm
           command: ["sleep", "infinity"]
           resources:
             limits:
